@@ -1,3 +1,5 @@
+package NamesScraper;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,12 +20,19 @@ public class NamesScraper {
     public static void main (String[] args){
         int numberOfPagesInSite = 14;
 
-        for (int i = 0; i < numberOfPagesInSite; i++)
+        for (int i = 1; i < numberOfPagesInSite; i++)
         {
             ExtractNamesFromPage(i);
         }
-        
+        System.out.println(names.size());
         ConvertToJsonFile();
+    }
+
+    private static String setCapitalLetter(String name) {
+        String res = name.toLowerCase();
+        res = (Character.toString(res.charAt(0))).toUpperCase() + res.substring(1, res.length());
+
+        return res;
     }
 
     private static void ConvertToJsonFile()
@@ -57,6 +66,8 @@ public class NamesScraper {
                 {
                     name = name.substring(0, name.indexOf(" ("));
                 }
+
+                name = setCapitalLetter(name);
                 names.add(name);
             }
         }
