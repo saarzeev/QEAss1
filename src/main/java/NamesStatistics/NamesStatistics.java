@@ -67,6 +67,19 @@ public class NamesStatistics {
     }
 
     public void countNGramsInNames(int n){
+        if (n < 1){
+            return;
+        }
+
+        Map<String, Integer> map = getNGramsHistogram(n);
+
+        for (String key: map.keySet())
+        {
+            System.out.println(key + ":" + map.get(key));
+        }
+    }
+
+    private  Map<String, Integer> getNGramsHistogram(int n) {
         Map<String, Integer> map = new HashMap<>();
 
         for (String name: names)
@@ -82,10 +95,79 @@ public class NamesStatistics {
                 }
             }
         }
+        return  map;
+    }
 
-        for (String key: map.keySet())
+    public void getMostPopularNGramInNames(int n){
+        boolean isCaseSensitive = false;
+
+        if (n < 1){
+            return;
+        }
+
+        if(!isCaseSensitive){
+            setNamesToLowerCase();
+        }
+
+        Map<String, Integer> map = getNGramsHistogram(n);
+
+        if(!isCaseSensitive){
+            setNamesCapitalLetter();
+        }
+
+        int maxAppearances = getMaxAppearancesOfNgram(map);
+
+        for (String ngram: map.keySet())
         {
-            System.out.println(key + ":" + map.get(key));
+            if(map.get(ngram) == maxAppearances){
+                System.out.println(ngram);
+            }
         }
     }
+
+    private int getMaxAppearancesOfNgram(Map<String, Integer> map) {
+        int maxAppearances = 0;
+
+        for (String ngram: map.keySet())
+        {
+            if(map.get(ngram) > maxAppearances){
+                maxAppearances = map.get(ngram);
+            }
+        }
+
+        return maxAppearances;
+    }
+
+    private void setNamesCapitalLetter() {
+        List<String> tmp = new ArrayList<>(names);
+        names.clear();
+        for (String name: tmp)
+        {
+            String res = name.toLowerCase();
+            res = (Character.toString(res.charAt(0))).toUpperCase() + res.substring(1, res.length());
+            names.add(res);
+        }
+    }
+
+    private void setNamesToLowerCase() {
+        List<String> tmp = new ArrayList<>(names);
+        names.clear();
+        for (String name: tmp)
+        {
+            names.add(name.toLowerCase());
+        }
+    }
+
+    public void printNamesFoundInString(String str){
+        boolean isCaseSensitive = false;
+
+        for (String name: names)
+        {
+            String nameToCheck = isCaseSensitive ? name :name.toLowerCase();
+            if(str.contains(nameToCheck)){
+                System.out.println(nameToCheck);
+            }
+        }
+    }
+
 }
