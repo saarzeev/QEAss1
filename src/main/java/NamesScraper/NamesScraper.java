@@ -20,7 +20,7 @@ public class NamesScraper {
     public static void main (String[] args){
         int numberOfPagesInSite = 14;
 
-        for (int i = 1; i < numberOfPagesInSite; i++)
+        for (int i = 1; i <= numberOfPagesInSite; i++)
         {
             ExtractNamesFromPage(i);
         }
