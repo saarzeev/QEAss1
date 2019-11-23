@@ -8,8 +8,7 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class NamesStatistics {
 
@@ -65,5 +64,28 @@ public class NamesStatistics {
         }
 
         return count;
+    }
+
+    public void countNGramsInNames(int n){
+        Map<String, Integer> map = new HashMap<>();
+
+        for (String name: names)
+        {
+            for (int i = 0; i < name.length() - n + 1; i++) {
+                String substr = name.substring(i, i + n);
+                if(!map.containsKey(substr)){
+                    map.put(substr, 1);
+                }
+                else
+                {
+                    map.put(substr, map.get(substr) + 1);
+                }
+            }
+        }
+
+        for (String key: map.keySet())
+        {
+            System.out.println(key + ":" + map.get(key));
+        }
     }
 }
