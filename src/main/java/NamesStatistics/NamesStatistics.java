@@ -1,5 +1,7 @@
 package NamesStatistics;
 
+import org.javatuples.Pair;
+import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -160,14 +162,65 @@ public class NamesStatistics {
 
     public void printNamesFoundInString(String str){
         boolean isCaseSensitive = false;
+        str = isCaseSensitive ? str : str.toLowerCase();
 
         for (String name: names)
         {
-            String nameToCheck = isCaseSensitive ? name :name.toLowerCase();
+            String nameToCheck = isCaseSensitive ? name : name.toLowerCase();
+
             if(str.contains(nameToCheck)){
                 System.out.println(nameToCheck);
             }
         }
     }
 
+    public Map<Character, Map<Character, Float>> createProbabilityMap(){
+        Map<Character, Map<Character, Float>> map = new Hashtable<>();
+        Map<Character, Integer> totalAppearances = new Hashtable<>();
+
+        createNextCharHistogram(map, totalAppearances);
+        turnNextCharHistogramToProbabilities(map, totalAppearances);
+
+        return map;
+    }
+
+    private void turnNextCharHistogramToProbabilities(Map<Character, Map<Character, Float>> map, Map<Character, Integer> totalAppearances) {
+        for (char c: map.keySet())
+        {
+            Map<Character, Float> nextCharAppearances = map.get(c);
+
+            for (char nextChar: nextCharAppearances.keySet())
+            {
+                nextCharAppearances.put(nextChar, nextCharAppearances.get(nextChar) / (float)totalAppearances.get(c));
+            }
+        }
+    }
+
+    private void createNextCharHistogram(Map<Character, Map<Character, Float>> map, Map<Character, Integer> totalAppearances) {
+        for (String name: names)
+        {
+            for (int i = 0; i < name.toCharArray().length; i++) {
+                char c = name.toCharArray()[i];
+
+                if(!map.containsKey(c)){
+                    map.put(c, new Hashtable<Character, Float>());
+                    totalAppearances.put(c, 1);
+                }
+                else{
+                    totalAppearances.put(c, totalAppearances.get(c) + 1);
+                }
+
+                if(i + 1 < name.toCharArray().length){
+                    char nextChar = name.toCharArray()[i + 1];
+
+                    if(!map.get(c).containsKey(nextChar)){
+                        map.get(c).put(nextChar, new Float(0));
+                    }
+
+                    map.get(c).put(nextChar, map.get(c).get(nextChar) + 1);
+                }
+
+            }
+        }
+    }
 }

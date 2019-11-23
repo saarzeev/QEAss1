@@ -6,6 +6,7 @@ public class Main {
         //System.out.println(stats.countSubstringInNames("re"));
         //stats.countNGramsInNames(12);
         //stats.getMostPopularNGramInNames(9);
-        stats.printNamesFoundInString("");
+        //stats.printNamesFoundInString("");
+        System.out.println(stats.createProbabilityMap());
     }
 }
