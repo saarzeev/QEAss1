@@ -196,7 +196,8 @@ public class NamesStatistics {
         }
     }
 
-    private void createNextCharHistogram(Map<Character, Map<Character, Float>> map, Map<Character, Integer> totalAppearances) {
+    private void createNextCharHistogram(Map<Character, Map<Character, Float>> map, Map<Character, Integer> totalAppearances)
+    {
         for (String name: names)
         {
             for (int i = 0; i < name.toCharArray().length; i++) {
@@ -219,8 +220,11 @@ public class NamesStatistics {
 
                     map.get(c).put(nextChar, map.get(c).get(nextChar) + 1);
                 }
-
             }
         }
+    }
+
+    public void generateName(){
+        return;
     }
 }
