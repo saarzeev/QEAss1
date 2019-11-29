@@ -7,26 +7,29 @@ public class CLIExecuter {
 
     private String arg;
     private String param;
+    private int numOfArgs;
+    private String[] args;
 
-    public CLIExecuter(NamesStatistics namesStatistics){
+    public CLIExecuter(NamesStatistics namesStatistics, String[] args){
         this.namesStatistics = namesStatistics;
+        this.args = args;
     }
 
-    public void executeFromArgs(String[] args)
+    public void executeFromArgs()
     {
-        int numOfArgs = args.length;
+         numOfArgs = args.length;
 
         boolean isValidNumberOfArgs = (numOfArgs >= 1 && numOfArgs <= MAX_LENGTH_OF_ARGS);
 
         if(isValidNumberOfArgs){
-            parseArgumentAndParameter(args);
+            parseArgumentAndParameter();
             executeRelevantMethod();
         }
 
 
     }
 
-    private void parseArgumentAndParameter(String[] args)
+    private void parseArgumentAndParameter()
     {
         if(args.length >= 1){
             arg = args[0];
@@ -37,7 +40,7 @@ public class CLIExecuter {
         }
     }
 
-    //TODO validate that the amount of args actually fit the argument itself.
+
     private void executeRelevantMethod()
     {
         int n;
@@ -52,6 +55,11 @@ public class CLIExecuter {
                 break;
 
             case "CountAllStrings":
+                if(numOfArgs != 2)
+                {
+                    break;
+                }
+
                 n = -1;
 
                 try
@@ -67,6 +75,11 @@ public class CLIExecuter {
                 break;
 
             case "CountMaxString":
+                if(numOfArgs != 2)
+                {
+                    break;
+                }
+
                 n = -1;
 
                 try

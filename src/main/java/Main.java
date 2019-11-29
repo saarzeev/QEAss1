@@ -8,7 +8,7 @@ public class Main {
 //        //stats.getMostPopularNGramInNames(9);
 //        //stats.printNamesFoundInString("");
 //        System.out.println(stats.createProbabilityMap());
-        CLIExecuter extractor = new CLIExecuter(stats);
-        extractor.executeFromArgs(args);
+        CLIExecuter extractor = new CLIExecuter(stats, args);
+        extractor.executeFromArgs();
     }
 }

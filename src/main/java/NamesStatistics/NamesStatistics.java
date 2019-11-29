@@ -1,7 +1,5 @@
 package NamesStatistics;
 
-import org.javatuples.Pair;
-import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -47,7 +45,7 @@ public class NamesStatistics {
         }
     }
 
-    public int countSubstringInNames(String substring){
+    public void countSubstringInNames(String substring){
         int count = 0;
 
         for (String name : names)
@@ -65,7 +63,7 @@ public class NamesStatistics {
             }
         }
 
-        return count;
+        System.out.println(count);
     }
 
     public void countNGramsInNames(int n){
