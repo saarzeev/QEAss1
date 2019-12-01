@@ -248,7 +248,6 @@ class NamesStatistics {
     }
 
     private Character getCharWithMaxProbability(Map<Character, Float> charAndProbability){
-        charAndProbability.entrySet().removeIf(entry -> Character.isUpperCase(entry.getKey()));
         Map.Entry<Character, Float> maxEntry = Collections.max(charAndProbability.entrySet(), Comparator.comparing(Map.Entry::getValue));
         return maxEntry.getKey();
     }
@@ -291,8 +290,6 @@ class CLIExecuter {
             parseArgumentAndParameter();
             executeRelevantMethod();
         }
-
-
     }
 
     private void parseArgumentAndParameter()
